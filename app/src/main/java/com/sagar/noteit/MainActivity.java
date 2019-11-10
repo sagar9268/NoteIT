@@ -10,12 +10,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN = 1;
 
     private String mUsername;
+    private Button mButtonAddNote;
+    private ActionBar mActionBar;
 
     //Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -38,9 +42,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mButtonAddNote = findViewById(R.id.buttonAddNote);
+
         mUsername = ANONYMOUS;
+        mActionBar = getSupportActionBar();
+        
+        mActionBar.setDisplayShowTitleEnabled(true);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        mButtonAddNote.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(MainActivity.this,EntryActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         /*
         FloatingActionButton fab = findViewById(R.id.fab);
