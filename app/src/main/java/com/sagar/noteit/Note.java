@@ -29,6 +29,7 @@ public class Note {
         this.noteDate = noteDate;
     }
 
+
     public String getNoteDate(){
         return noteDate;
     }
