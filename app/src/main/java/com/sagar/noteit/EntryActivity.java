@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,11 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class EntryActivity extends AppCompatActivity {
 
@@ -20,6 +28,16 @@ public class EntryActivity extends AppCompatActivity {
     private Button mButtonSave;
     private ActionBar mActionBar;
     private CoordinatorLayout mCoordinatorLayout;
+    private String ID_KEY = "id";
+    private String mUserID;
+    private String currentDate;
+    private EditText mTitleEdit;
+    private EditText mNoteEdit;
+
+    //Firebase instance variables
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mNoteDatabaseReference;
+    private ChildEventListener mChildEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +49,20 @@ public class EntryActivity extends AppCompatActivity {
         mButtonCancel = findViewById(R.id.buttonCancel);
         mButtonSave = findViewById(R.id.buttonSave);
         mCoordinatorLayout = findViewById(R.id.coordinatorLayout2);
+        mTitleEdit = findViewById(R.id.editTextTitle);
+        mNoteEdit = findViewById(R.id.editTextNote);
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Add Note");
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(true);
+
+        final Bundle bundle = getIntent().getExtras();
+        mUserID = bundle.getString(ID_KEY);
+        currentDate = new SimpleDateFormat("E, MMM d, yyyy", Locale.getDefault()).format(new Date());
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(mUserID).child("notes");
 
         mButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +76,13 @@ public class EntryActivity extends AppCompatActivity {
         mButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Note mNote = new Note(mTitleEdit.getText().toString(),currentDate, mNoteEdit.getText().toString());
+                mNoteDatabaseReference.push().setValue(mNote);
+
                 Snackbar.make(mCoordinatorLayout, "Note added",Snackbar.LENGTH_SHORT).show();
+                Intent i = new Intent(EntryActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 /*
