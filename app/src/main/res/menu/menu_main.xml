@@ -8,8 +8,13 @@
         android:title="@string/show_notes"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_sign_out"
+        android:id="@+id/action_delete_notes"
         android:orderInCategory="200"
+        android:title="@string/delete_all_notes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sign_out"
+        android:orderInCategory="300"
         android:title="@string/sign_out"
         app:showAsAction="never" />
 </menu>
