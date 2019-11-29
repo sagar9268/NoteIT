@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +209,12 @@ public class MainActivity extends AppCompatActivity {
         else if(id == R.id.action_sign_out){
             //sign out
             AuthUI.getInstance().signOut(this);
+            return true;
+        }
+        else if(id == R.id.action_delete_notes){
+            mNoteDatabaseReference.child("notes").removeValue();
+            objectList.clear();
+            adapter.notifyDataSetChanged();
             return true;
         }
 

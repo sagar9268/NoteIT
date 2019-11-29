@@ -54,7 +54,7 @@ public class EntryActivity extends AppCompatActivity {
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Add Note");
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        //mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(true);
 
         final Bundle bundle = getIntent().getExtras();
