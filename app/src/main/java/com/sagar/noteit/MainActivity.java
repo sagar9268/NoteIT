@@ -85,7 +85,12 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         //Log.d(TAG,"User ID: "+user.getUid());
-        mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid());//.child("users").child(mUserID).child("notes");
+        try{
+            mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid());//.child("users").child(mUserID).child("notes");
+
+        }catch (Exception e){
+            mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(ID);
+        }
 
         helper = new FirebaseHelper(mNoteDatabaseReference);
         layoutManager = new LinearLayoutManager(this);
