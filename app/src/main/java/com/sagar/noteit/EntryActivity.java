@@ -17,6 +17,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +28,8 @@ public class EntryActivity extends AppCompatActivity {
 
     private Button mButtonCancel;
     private Button mButtonSave;
+    private RadioGroup mRadioGroup;
+    private RadioButton mRadioButton;
     private ActionBar mActionBar;
     private CoordinatorLayout mCoordinatorLayout;
     private String ID_KEY = "id";
@@ -48,6 +52,7 @@ public class EntryActivity extends AppCompatActivity {
 
         mButtonCancel = findViewById(R.id.buttonCancel);
         mButtonSave = findViewById(R.id.buttonSave);
+        mRadioGroup = findViewById(R.id.radioGroup);
         mCoordinatorLayout = findViewById(R.id.coordinatorLayout2);
         mTitleEdit = findViewById(R.id.editTextTitle);
         mNoteEdit = findViewById(R.id.editTextNote);
@@ -77,7 +82,10 @@ public class EntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Note mNote = new Note(mTitleEdit.getText().toString(),currentDate, mNoteEdit.getText().toString());
-                mNoteDatabaseReference.push().setValue(mNote);
+
+                int selectedID = mRadioGroup.getCheckedRadioButtonId();
+                mRadioButton = findViewById(selectedID);
+                mNoteDatabaseReference.child(mRadioButton.getText().toString()).push().setValue(mNote);
 
                 Snackbar.make(mCoordinatorLayout, "Note added",Snackbar.LENGTH_SHORT).show();
                 Intent i = new Intent(EntryActivity.this,MainActivity.class);

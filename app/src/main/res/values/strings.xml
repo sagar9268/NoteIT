@@ -5,4 +5,8 @@
     <string name="title_activity_entry">EntryActivity</string>
     <string name="show_notes">Show all notes</string>
     <string name="delete_all_notes">Delete all notes</string>
+    <string name="categoryPersonal">Personal</string>
+    <string name="categoryProfessional">Professional</string>
+    <string name="personal_notes">Personal Notes</string>
+    <string name="professional_notes">Professional Notes</string>
 </resources>
