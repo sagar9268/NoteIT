@@ -67,7 +67,7 @@ public class EntryActivity extends AppCompatActivity {
         currentDate = new SimpleDateFormat("E, MMM d, yyyy", Locale.getDefault()).format(new Date());
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(mUserID).child("notes");
+        mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(mUserID);//.child("notes");
 
         mButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class EntryActivity extends AppCompatActivity {
 
                 int selectedID = mRadioGroup.getCheckedRadioButtonId();
                 mRadioButton = findViewById(selectedID);
-                mNoteDatabaseReference.child(mRadioButton.getText().toString()).push().setValue(mNote);
+                mNoteDatabaseReference.child(mRadioButton.getText().toString()+"-Notes").child("text").push().setValue(mNote);
 
                 Snackbar.make(mCoordinatorLayout, "Note added",Snackbar.LENGTH_SHORT).show();
                 Intent i = new Intent(EntryActivity.this,MainActivity.class);

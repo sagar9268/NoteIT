@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         //Log.d(TAG,"User ID: "+user.getUid());
         try{
-            mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid());//.child("users").child(mUserID).child("notes");
+            mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid());//.child("notes");//.child("users").child(mUserID).child("notes");
 
         }catch (Exception e){
             mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(ID);
         }
 
-        helper = new FirebaseHelper(mNoteDatabaseReference);
+        helper = new FirebaseHelper(mNoteDatabaseReference.child("Personal-Notes"));
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -205,9 +205,34 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_show_notes) {
+        if(id == R.id.action_personal_notes){
+            //objectList.clear();
+            //mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid()).child("notes").child("Personal");
+            helper = new FirebaseHelper(mNoteDatabaseReference.child("Personal-Notes"));
+            objectList = helper.retrieve();
+            adapter = new NoteAdapter(MainActivity.this,objectList);
+            recyclerView.setAdapter(adapter);
+            mActionBar.setTitle("NoteIT - Personal");
+
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+        else if(id == R.id.action_professional_notes){
+            //objectList.clear();
+            //mNoteDatabaseReference = mFirebaseDatabase.getReference().child("users").child(user.getUid()).child("notes").child("Professional");
+            helper = new FirebaseHelper(mNoteDatabaseReference.child("Professional-Notes"));
+            objectList = helper.retrieve();
+            adapter = new NoteAdapter(MainActivity.this,objectList);
+            recyclerView.setAdapter(adapter);
+            mActionBar.setTitle("NoteIT - Professional");
+
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+        else if (id == R.id.action_show_notes) {
             adapter.notifyDataSetChanged();
             return true;
         }
@@ -217,7 +242,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.action_delete_notes){
-            mNoteDatabaseReference.child("notes").removeValue();
+            mNoteDatabaseReference.child("Personal-Notes").removeValue();
+            mNoteDatabaseReference.child("Professional-Notes").removeValue();
             objectList.clear();
             adapter.notifyDataSetChanged();
             return true;
