@@ -3,18 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.sagar.noteit.MainActivity">
     <item
-        android:id="@+id/action_show_notes"
+        android:id="@+id/action_personal_notes"
         android:orderInCategory="100"
+        android:title="@string/personal_notes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_professional_notes"
+        android:orderInCategory="101"
+        android:title="@string/professional_notes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_show_notes"
+        android:orderInCategory="102"
         android:title="@string/show_notes"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_delete_notes"
-        android:orderInCategory="200"
+        android:orderInCategory="103"
         android:title="@string/delete_all_notes"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sign_out"
-        android:orderInCategory="300"
+        android:orderInCategory="104"
         android:title="@string/sign_out"
         app:showAsAction="never" />
 </menu>
