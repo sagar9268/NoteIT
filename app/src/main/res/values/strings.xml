@@ -9,4 +9,5 @@
     <string name="categoryProfessional">Professional</string>
     <string name="personal_notes">Personal Notes</string>
     <string name="professional_notes">Professional Notes</string>
+    <string name="add_image">Add Image</string>
 </resources>
