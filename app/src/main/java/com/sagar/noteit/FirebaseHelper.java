@@ -31,6 +31,7 @@ public class FirebaseHelper {
             Log.d(TAG,"Title: "+ note.getTitle());
             Log.d(TAG,"Note: "+ note.getNoteText());
             Log.d(TAG,"Date: "+note.getNoteDate());
+            Log.d(TAG,"Image URL:"+ note.getNoteImageURL());
             notes.add(note);
         }
     }

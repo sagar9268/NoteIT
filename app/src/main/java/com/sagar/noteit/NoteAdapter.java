@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +27,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         public TextView mNoteTitle;
         public TextView mNoteDate;
         public TextView mNoteText;
+        public ImageView mNoteImage;
 
         public MyViewHolder(View view){
             super(view);
             mNoteTitle = view.findViewById(R.id.itemTitle);
             mNoteDate = view.findViewById(R.id.itemDate);
             mNoteText = view.findViewById(R.id.itemNote);
+            mNoteImage = view.findViewById(R.id.itemImage);
         }
     }
 
@@ -54,6 +59,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         ((MyViewHolder)holder).mNoteTitle.setText(note.getTitle());
         ((MyViewHolder)holder).mNoteDate.setText(note.getNoteDate());
         ((MyViewHolder)holder).mNoteText.setText(note.getNoteText());
+        boolean isImage = note.getNoteImageURL() != null;
+        if(isImage){
+            ((MyViewHolder)holder).mNoteImage.setVisibility(View.VISIBLE);
+            Glide.with(((MyViewHolder)holder).mNoteImage.getContext()).load(note.getNoteImageURL()).into(((MyViewHolder)holder).mNoteImage);
+        }
+        else{
+            ((MyViewHolder)holder).mNoteImage.setVisibility(View.GONE);
+        }
     }
 
     @Override
