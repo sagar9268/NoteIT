@@ -18,13 +18,18 @@
         android:title="@string/show_notes"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_delete_notes"
+        android:id="@+id/action_search_notes"
         android:orderInCategory="103"
+        android:title="@string/search_for_a_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete_notes"
+        android:orderInCategory="104"
         android:title="@string/delete_all_notes"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sign_out"
-        android:orderInCategory="104"
+        android:orderInCategory="105"
         android:title="@string/sign_out"
         app:showAsAction="never" />
 </menu>

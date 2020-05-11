@@ -10,4 +10,9 @@
     <string name="personal_notes">Personal Notes</string>
     <string name="professional_notes">Professional Notes</string>
     <string name="add_image">Add Image</string>
+    <string name="search_for_a_note">Search for a note</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="refresh">Refresh</string>
 </resources>
