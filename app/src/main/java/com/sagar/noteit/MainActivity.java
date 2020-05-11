@@ -248,6 +248,12 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             return true;
         }
+        else if (id == R.id.action_search_notes){
+            //launch search activity
+            Intent i = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(i);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
