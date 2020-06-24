@@ -1,6 +1,7 @@
 package com.sagar.noteit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,8 @@ import java.util.Objects;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
-    private Context mContext;
-    private ArrayList<Note> noteList;
+    private static Context mContext;
+    private static ArrayList<Note> noteList;
     public NoteAdapter(Context mContext, ArrayList<Note> noteList){
         this.mContext = mContext;
         this.noteList = noteList;
@@ -35,6 +36,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
             mNoteDate = view.findViewById(R.id.itemDate);
             mNoteText = view.findViewById(R.id.itemNote);
             mNoteImage = view.findViewById(R.id.itemImage);
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int p = getLayoutPosition();
+                    Note note = noteList.get(p);
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, note.getNoteText());
+                    sendIntent.putExtra(Intent.EXTRA_TITLE, note.getTitle());
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, note.getTitle());
+                    sendIntent.setType("text/plain");
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    mContext.startActivity(shareIntent);
+
+
+                    return true;
+                }
+            });
         }
     }
 
